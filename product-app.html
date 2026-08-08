@@ -57,6 +57,7 @@ select:focus{border-color:rgba(255,136,68,0.3)}
 </div>
 <textarea id="resumeInput" placeholder="在此粘贴简历...&#10;&#10;建议包含：个人信息·工作经历(公司/职位/时间)·项目经验·技能·教育&#10;&#10;例：&#10;张三 | 高级前端工程师 | 5年经验&#10;2021-至今 某科技公司 前端负责人&#10;· 主导React架构升级，页面加载速度提升60%&#10;· 带领3人团队交付12个核心项目"></textarea>
 <button class="btn" onclick="analyze()" id="analyzeBtn">🔍 深度分析</button>
+<button class="btn btn2" onclick="printPDF()" style="display:none" id="pdfBtn">📄 导出PDF</button>
 <div class="result" id="analysisResult"></div>
 <div class="optimized-section" id="optimizedSection">
 <h3 style="color:#4ade80;margin-bottom:8px">✨ AI优化版本</h3>
@@ -220,6 +221,15 @@ function generateOptimized(text,industry,level,lang,rules,missing){
 }
 
 function copyResult(){var t=document.getElementById('optimizedOutput');t.select();document.execCommand('copy');alert('✅ 已复制优化版简历！')}
+
+function printPDF(){
+  var content=document.getElementById('optimizedOutput').value;
+  if(!content)return;
+  var w=window.open('','_blank');
+  w.document.write('<html><head><meta charset=\"UTF-8\"><title>AI优化简历</title><style>body{font-family:PingFang SC,sans-serif;padding:40px;line-height:1.8;font-size:14px;color:#333;white-space:pre-wrap}</style></head><body>'+content.replace(/\n/g,'<br>')+'<br><br><p style=\"color:#999;font-size:11px\">由AI简历优化器Pro生成 · xuanshu.ai</p></body></html>');
+  w.document.close();
+  setTimeout(function(){w.print()},500);
+}
 
 function matchJD(){
   var resume=document.getElementById('resumeInput').value.trim();
