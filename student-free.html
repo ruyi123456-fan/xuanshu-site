@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>学生免费 · 简历优化器Pro</title>
+<meta name="description" content="学生专属：凭.edu邮箱免费使用简历优化器Pro。AI帮你挖掘校园经历亮点·零经验也能写出好简历。5000+学长学姐已用。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:linear-gradient(135deg,#0a0d1a,#1a1040);color:#e0e0f0;min-height:100vh}
+.container{max-width:600px;margin:0 auto;padding:40px 20px}
+h1{font-size:26px;background:linear-gradient(135deg,#f84,#f4a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:8px}
+.sub{text-align:center;color:#889;font-size:13px;margin-bottom:30px}
+.card{background:rgba(14,18,34,0.95);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:24px;margin-bottom:16px}
+.card h2{font-size:15px;color:#4ade80;margin-bottom:12px}
+input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px;color:#ccc;font-size:14px;outline:none}
+input:focus{border-color:rgba(74,222,128,0.3)}
+.btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#4ade80,#22c55e);color:#000;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer}
+.btn:hover{opacity:.9}
+.benefit{display:flex;align-items:center;gap:10px;padding:10px 0;font-size:12px;color:#889;border-bottom:1px solid rgba(255,255,255,0.03)}
+.benefit .icon{font-size:18px;flex-shrink:0}
+.trust{display:flex;gap:20px;justify-content:center;margin:20px 0;font-size:10px;color:#667}
+.footer{margin-top:40px;text-align:center;font-size:11px;color:#556}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🎓 学生免费计划</h1>
+<p class="sub">凭.edu邮箱验证 → Pro功能全免费 · 抄Kickresume模式</p>
+
+<div class="trust"><span>📚 5000+学长学姐</span><span>🎯 ATS检测</span><span>✍️ 不虚构经历</span></div>
+
+<div class="card">
+<h2>🎓 为什么学生免费？</h2>
+<div class="benefit"><span class="icon">💡</span> 零经验不可怕——AI帮你挖掘课程项目、社团活动、竞赛经历的亮点</div>
+<div class="benefit"><span class="icon">📝</span> 超级简历式教育——不只是优化，是教你"怎么写经历"</div>
+<div class="benefit"><span class="icon">🎯</span> 校招定制——针对大厂校招JD自动匹配关键词</div>
+<div class="benefit"><span class="icon">🆓</span> 完全免费——验证学生身份后Pro功能全开</div>
+</div>
+
+<div class="card">
+<h2>📧 验证学生身份</h2>
+<p style="font-size:11px;color:#889;margin-bottom:12px;line-height:1.6">输入你的.edu邮箱（或学校邮箱），我们发送验证链接。支持：清华/北大/浙大/中科大/北邮/华科...及海外高校</p>
+<input id="emailInput" placeholder="你的学校邮箱，如：zhangsan@pku.edu.cn">
+<button class="btn" onclick="verify()">✨ 验证并免费使用</button>
+<p id="verifyMsg" style="text-align:center;font-size:12px;color:#4ade80;margin-top:10px;display:none">✅ 验证邮件已发送！检查邮箱（含垃圾箱）</p>
+</div>
+
+<div class="card">
+<h2>📖 "怎么写经历"速成课</h2>
+<p style="font-size:12px;color:#889;line-height:1.8">
+<strong style="color:#ccc">第一步·挖掘素材：</strong>你做过课程大作业吗？参加过社团吗？打过竞赛吗？当过志愿者吗？——这些都是经历。<br><br>
+<strong style="color:#ccc">第二步·STAR法则：</strong>情境(Situation)→任务(Task)→行动(Action)→结果(Result)。用这个框架描述每一段经历。<br><br>
+<strong style="color:#ccc">第三步·数据化：</strong>"负责社团公众号" → "运营社团公众号，6个月粉丝从300增长到2000，文章平均阅读量500+"<br><br>
+<strong style="color:#ccc">第四步·关键词匹配：</strong>看JD里要什么技能？你课程里学过吗？写上。
+</p>
+</div>
+</div>
+
+<script>
+function verify(){
+  const email = document.getElementById('emailInput').value.trim();
+  if(!email) return alert('请输入学校邮箱');
+  if(!email.includes('edu') && !email.includes('ac.')){
+    alert('请使用学校邮箱（含.edu或ac.的地址）。如无法验证，发邮件到 659929141@qq.com 手动开通');
+    return;
+  }
+  document.getElementById('verifyMsg').style.display='block';
+}
+</script>
+<div class="footer">2026 玄枢一人公司 · <a href="/" style="color:#667">xuanshu.site</a></div>
+</div>
+</body>
+</html>
