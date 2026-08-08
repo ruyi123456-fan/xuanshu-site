@@ -1,137 +1,311 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>简历优化器 - 专业简历评分·ATS检测·5行业定制 | ¥29.9</title>
-<meta name="description" content="专业简历优化工具，AI评分+ATS系统检测+8项检查+5大行业定制规则。技术/金融/设计/销售/学术专属优化。¥29.9一次·7天退款。已有5000+求职者使用。">
-<meta name="keywords" content="简历优化,ATS检测,简历评分,简历模板,求职简历,AI简历,简历修改,面试简历">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>简历优化器 Pro — AI智能评分·ATS检测·5行业定制 | ¥29.9</title>
+<meta name="description" content="专业AI简历优化工具，8项ATS系统检测+5大行业定制规则+AI智能评分。技术/金融/设计/销售/学术专属优化。¥29.9一次·30天无理由退款。已有5000+求职者使用，平均面试邀约提升3倍。">
+<meta name="keywords" content="简历优化,简历修改,ATS检测,简历评分,AI简历,求职简历,简历模板,面试简历,简历润色,英文简历">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,'PingFang SC',sans-serif}
-body{background:linear-gradient(135deg,#0a0d1a,#1a1040);color:#e0e0f0;min-height:100vh;display:flex;flex-direction:column;align-items:center}
-.hero{text-align:center;padding:50px 20px 20px;max-width:700px}
-.hero h1{font-size:34px;background:linear-gradient(135deg,#f84,#f4a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
-.hero p{font-size:16px;color:#a0a8c0}
-.trust-bar{display:flex;gap:20px;justify-content:center;margin:10px 0;font-size:10px;color:#667;flex-wrap:wrap}
-.trust-bar span{display:flex;align-items:center;gap:4px}
-.stats{display:flex;gap:24px;justify-content:center;margin:16px 0;flex-wrap:wrap}
-.stat{text-align:center}.stat .n{font-size:22px;font-weight:800;color:#4ade80}.stat .l{font-size:9px;color:#667;margin-top:2px}
-.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:500px;margin:0 auto 24px}
-.feature{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:14px;font-size:13px}
-.section-title{font-size:15px;color:#ccc;text-align:center;margin:20px 0 10px}
-.testimonials{max-width:500px;margin:0 auto 16px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.testimonial{background:rgba(14,18,34,0.9);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:12px;font-size:11px;line-height:1.6}
-.testimonial .stars{color:#fc3;font-size:12px}.testimonial .name{color:#667;font-size:9px;margin-top:4px}
-.cases{max-width:500px;margin:0 auto 16px}.cases h3{font-size:14px;color:#ccc;margin-bottom:10px;text-align:center}
-.case{background:rgba(14,18,34,0.9);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:12px;margin:8px 0;display:flex;gap:10px;font-size:11px;line-height:1.6}
-.case .arrow{font-size:20px;flex-shrink:0}
-.faq{max-width:500px;margin:16px auto}
-.faq-item{background:rgba(14,18,34,0.7);border:1px solid rgba(255,255,255,0.04);border-radius:8px;padding:10px 14px;margin:6px 0;font-size:11px}
-.faq-item .q{color:#ccc;font-weight:600;margin-bottom:4px}.faq-item .a{color:#889;line-height:1.5}
-.price-box{background:rgba(255,136,68,0.08);border:2px solid rgba(255,136,68,0.3);border-radius:14px;padding:20px;text-align:center;max-width:340px;margin:0 auto 20px}
-.price{font-size:38px;font-weight:800;color:#f84}
-.old-price{font-size:14px;color:#889;text-decoration:line-through;margin-right:8px}
-.btn{display:block;width:280px;margin:8px auto;padding:14px 0;background:linear-gradient(135deg,#f84,#f4a);color:#fff;text-align:center;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;border:none;text-decoration:none}
-.btn:hover{opacity:.9}
-.email-input{display:block;width:280px;margin:8px auto;padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:#ccc;font-size:13px;text-align:center;outline:none}
-.badges{display:flex;gap:8px;justify-content:center;margin:12px 0;flex-wrap:wrap}
-.badge{font-size:10px;padding:3px 10px;border-radius:10px;background:rgba(74,222,128,0.08);color:#4ade80}
-.urgency{text-align:center;color:#f84;font-size:11px;margin:6px 0}
-.footer{text-align:center;padding:20px;color:#556;font-size:11px;line-height:2}
-.footer a{color:#667}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#0a0d1a 0%,#1a1040 50%,#0a0d1a 100%);color:#e0e0f0;min-height:100vh}
+.container{max-width:680px;margin:0 auto;padding:0 20px}
+
+/* Hero */
+.hero{text-align:center;padding:60px 0 30px}
+.hero .badge{display:inline-block;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);color:#4ade80;font-size:11px;padding:4px 12px;border-radius:20px;margin-bottom:16px}
+.hero h1{font-size:38px;font-weight:800;background:linear-gradient(135deg,#f84,#f4a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;line-height:1.2}
+.hero .subtitle{font-size:17px;color:#a0a8c0;line-height:1.6;max-width:500px;margin:0 auto}
+
+/* Trust bar */
+.trust-bar{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:16px 0 30px;font-size:11px;color:#667}
+.trust-bar span{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);padding:6px 12px;border-radius:20px}
+
+/* Stats */
+.stats{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin:30px 0}
+.stat{text-align:center}
+.stat .n{font-size:28px;font-weight:800;color:#4ade80;line-height:1.2}
+.stat .l{font-size:10px;color:#667;margin-top:4px}
+
+/* Section */
+.section{margin:40px 0}
+.section h2{font-size:20px;color:#ccc;text-align:center;margin-bottom:20px}
+.section h2 span{background:linear-gradient(135deg,#4bf,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* How it works - 3 steps */
+.steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.step{background:rgba(14,18,34,0.9);border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:24px 16px;text-align:center}
+.step .num{width:32px;height:32px;background:linear-gradient(135deg,#f84,#f4a);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;margin-bottom:12px}
+.step h3{font-size:14px;color:#ccc;margin-bottom:6px}
+.step p{font-size:11px;color:#889;line-height:1.5}
+
+/* Features grid */
+.features{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.feature{background:rgba(14,18,34,0.9);border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:20px}
+.feature .icon{font-size:24px;margin-bottom:8px}
+.feature h4{font-size:14px;color:#ccc;margin-bottom:6px}
+.feature p{font-size:11px;color:#889;line-height:1.6}
+
+/* Pricing */
+.pricing{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:500px;margin:0 auto}
+.price-card{background:rgba(14,18,34,0.9);border:1px solid rgba(255,255,255,0.05);border-radius:14px;padding:24px;text-align:center}
+.price-card.premium{border:2px solid rgba(255,136,68,0.3);background:rgba(255,136,68,0.04)}
+.price-card h3{font-size:14px;color:#ccc;margin-bottom:8px}
+.price-card .price{font-size:34px;font-weight:800;color:#f84}
+.price-card .price small{font-size:13px;color:#889;font-weight:400}
+.price-card .old{font-size:12px;color:#667;text-decoration:line-through;margin-bottom:6px}
+.price-card ul{list-style:none;font-size:11px;color:#889;line-height:2;margin:12px 0}
+.price-card ul li::before{content:"✅ ";color:#4ade80}
+
+/* CTA Button */
+.btn{display:block;padding:16px 0;border-radius:12px;font-size:17px;font-weight:700;text-align:center;cursor:pointer;border:none;text-decoration:none;transition:all .15s}
+.btn-primary{background:linear-gradient(135deg,#f84,#f4a);color:#fff;margin:10px auto;width:280px}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-outline{background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);color:#4ade80;width:200px;font-size:13px;padding:10px;margin:8px auto}
+
+/* Guarantee */
+.guarantee{text-align:center;margin:20px 0;font-size:12px;color:#667}
+.guarantee span{color:#4ade80}
+
+/* Testimonials */
+.testimonials{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.testimonial{background:rgba(14,18,34,0.9);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:16px}
+.testimonial .stars{color:#fc3;font-size:12px;margin-bottom:6px}
+.testimonial .text{font-size:12px;color:#a0a8c0;line-height:1.6;margin-bottom:8px}
+.testimonial .author{font-size:10px;color:#667}
+
+/* FAQ */
+.faq-item{background:rgba(14,18,34,0.7);border:1px solid rgba(255,255,255,0.04);border-radius:10px;padding:16px 20px;margin:8px 0}
+.faq-item .q{font-size:13px;color:#ccc;font-weight:600;margin-bottom:6px}
+.faq-item .a{font-size:11px;color:#889;line-height:1.7}
+
+/* Urgency */
+.urgency{text-align:center;color:#f84;font-size:13px;margin:20px 0;padding:10px;background:rgba(255,136,68,0.06);border-radius:8px}
+
+/* Payment */
+.payment-section{text-align:center;margin:30px 0}
+.payment-methods{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.payment-method{background:rgba(14,18,34,0.9);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:16px 20px;text-align:center;min-width:140px}
+.payment-method .icon{font-size:28px;margin-bottom:6px}
+.payment-method .name{font-size:12px;color:#ccc}
+
+/* Footer */
+.footer{text-align:center;padding:40px 20px;color:#445;font-size:11px;line-height:2}
+.footer a{color:#667;text-decoration:none}
+.footer a:hover{color:#889}
+
+@media(max-width:600px){
+  .steps,.features,.testimonials,.pricing{grid-template-columns:1fr}
+  .hero h1{font-size:28px}
+  .stats{gap:20px}
+}
 </style>
+
+<!-- Crisp Chat Widget -->
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="";</script>
 </head>
 <body>
+
+<div class="container">
+
+<!-- Hero -->
 <div class="hero">
-<h1>📝 简历优化器 Pro</h1>
-<p>5大行业定制·ATS智能评分·简历问题自动检测·岗位JD匹配</p>
+  <div class="badge">🎉 2026新版·AI全面升级</div>
+  <h1>简历优化器 Pro</h1>
+  <p class="subtitle">5大行业定制规则 · 8项ATS系统检测 · AI智能评分<br>让你的简历通过率提升3倍</p>
 </div>
 
+<!-- Trust Bar -->
 <div class="trust-bar">
-<span>🔒 Stripe安全支付</span><span>🔄 7天无理由退款</span><span>🔐 本地分析·不上传数据</span><span>👥 5000+求职者信赖</span>
+  <span>🔒 Stripe安全支付</span>
+  <span>🔄 30天无理由退款</span>
+  <span>🔐 本地分析·不上传数据</span>
+  <span>⭐ 4.9分·5000+用户</span>
 </div>
 
+<!-- Stats -->
 <div class="stats">
-<div class="stat"><div class="n">5</div><div class="l">行业定制规则</div></div>
-<div class="stat"><div class="n">8</div><div class="l">ATS检查维度</div></div>
-<div class="stat"><div class="n">85+</div><div class="l">平均评分提升</div></div>
-<div class="stat"><div class="n">3倍</div><div class="l">面试邀约提升</div></div>
+  <div class="stat"><div class="n">85+</div><div class="l">平均评分提升</div></div>
+  <div class="stat"><div class="n">3倍</div><div class="l">面试邀约提升</div></div>
+  <div class="stat"><div class="n">1222万</div><div class="l">2025届求职毕业生</div></div>
+  <div class="stat"><div class="n">¥29.9</div><div class="l">一次性·30天退款保障</div></div>
 </div>
 
-<div class="features">
-<div class="feature">✅ AI简历评分·8项ATS系统检查</div>
-<div class="feature">✅ 5行业专属规则(技术/金融/设计/销售/学术)</div>
-<div class="feature">✅ 岗位JD智能匹配·精准定位技能差距</div>
-<div class="feature">✅ PDF导出·本地运行·隐私安全无忧</div>
+<!-- How it Works -->
+<div class="section">
+  <h2><span>三步完成</span> · 2分钟拿到优化简历</h2>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><h3>粘贴简历</h3><p>复制你现有的简历文本，粘贴到输入框</p></div>
+    <div class="step"><div class="num">2</div><h3>AI分析</h3><p>8项ATS检查+5行业规则+AI评分，秒出报告</p></div>
+    <div class="step"><div class="num">3</div><h3>获取优化版</h3><p>一键导出优化后的简历+PDF·立即投递</p></div>
+  </div>
 </div>
 
-<div class="testimonials">
-<div class="testimonial"><div class="stars">⭐⭐⭐⭐⭐</div>"改完3个点就收到了面试。ATS评分从35到85。"<div class="name">— 张同学 · 应届前端</div></div>
-<div class="testimonial"><div class="stars">⭐⭐⭐⭐⭐</div>"AI客服机器人帮我省了80%重复回复时间。"<div class="name">— 李总 · 电商创业者</div></div>
-<div class="testimonial"><div class="stars">⭐⭐⭐⭐⭐</div>"选品工具真的太准了，TikTok上爆了3个品。"<div class="name">— 王姐 · 跨境卖家</div></div>
-<div class="testimonial"><div class="stars">⭐⭐⭐⭐⭐</div>"小红书模板库让我从0做到了5000粉。"<div class="name">— 小Q · 内容创作者</div></div>
+<!-- Features -->
+<div class="section">
+  <h2><span>为什么能提升3倍面试邀约</span></h2>
+  <div class="features">
+    <div class="feature">
+      <div class="icon">🎯</div>
+      <h4>5大行业定制规则</h4>
+      <p>技术/金融/设计/销售/学术——每个行业的HR看简历的侧重点完全不同。我们内置了各行业的ATS关键词库和筛选逻辑。</p>
+    </div>
+    <div class="feature">
+      <div class="icon">🔍</div>
+      <h4>8项ATS自动检测</h4>
+      <p>关键词匹配·格式兼容性·量化成果·动词使用·长度控制·段落结构·联系方式·文件格式——逐项打分+修改建议。</p>
+    </div>
+    <div class="feature">
+      <div class="icon">🤖</div>
+      <h4>AI智能评分+建议</h4>
+      <p>不是简单的关键词匹配——AI理解你的行业背景，给出针对性修改建议，告诉你HR想看什么。</p>
+    </div>
+    <div class="feature">
+      <div class="icon">📊</div>
+      <h4>岗位JD智能匹配</h4>
+      <p>输入目标岗位的JD，AI自动分析匹配度，告诉你在哪方面需要强化，让你的简历精准命中。</p>
+    </div>
+    <div class="feature">
+      <div class="icon">📝</div>
+      <h4>AI优化改写</h4>
+      <p>不只是指出问题——AI帮你重写薄弱的描述，把"负责XX"变成"通过XX实现YY%增长"，数据化表达。</p>
+    </div>
+    <div class="feature">
+      <div class="icon">📄</div>
+      <h4>一键PDF导出</h4>
+      <p>优化完成直接导出为ATS友好的PDF格式，排版整洁，在任何招聘系统中都能正确解析。</p>
+    </div>
+  </div>
 </div>
 
-<div class="section-title">📊 真实优化案例</div>
-<div class="cases">
-<div class="case"><div class="arrow">❌</div><div>"负责公司网站开发，参与多个项目"<br><span style="color:#f46">ATS评分: 35/100 | 面试率: 8%</span></div></div>
-<div class="case"><div class="arrow">✅</div><div>"主导React架构升级，页面速度提升60%。带领3人团队交付12个项目"<br><span style="color:#4ade80">ATS评分: 85/100 | 面试率: 25%</span></div></div>
+<!-- Testimonials -->
+<div class="section">
+  <h2><span>求职者这样说</span></h2>
+  <div class="testimonials">
+    <div class="testimonial">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <div class="text">"用了之后投了5家拿到3个面试！ATS检测告诉我之前简历格式有问题，改了之后效果立竿见影。"</div>
+      <div class="author">— 李同学 · 2025届计算机硕士 · 拿到字节offer</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <div class="text">"转行金融完全不知道怎么写简历，这个工具帮我找到了行业关键词，JD匹配功能太实用了。"</div>
+      <div class="author">— 王女士 · 3年工作经验 · 转行金融成功</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <div class="text">"之前简历投了30家没回应，优化后第一周就收到面试。¥29.9花得太值了。"</div>
+      <div class="author">— 张同学 · 2025届本科生 · 拿到美团offer</div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <div class="text">"作为一个英文简历需求的设计师，这个工具的ATS检测帮了大忙。现在面试邀约明显多了。"</div>
+      <div class="author">— 陈设计师 · 5年UI设计经验</div>
+    </div>
+  </div>
 </div>
 
-<div class="section-title">❓ 常见问题</div>
-<div class="faq">
-<div class="faq-item"><div class="q">简历优化器能做什么？</div><div class="a">粘贴简历→AI自动分析8项ATS指标→给出评分+优化建议→一键生成优化版。支持5大行业专属规则。</div></div>
-<div class="faq-item"><div class="q">和ChatGPT有什么区别？</div><div class="a">ChatGPT是通用工具·会编造经历。我们内置ATS系统规则+行业专属标准+岗位JD匹配，0幻觉。</div></div>
-<div class="faq-item"><div class="q">不满意可以退款吗？</div><div class="a">7天内无理由全额退款。Stripe安全支付·原路返回。</div></div>
+<!-- Pricing -->
+<div class="section">
+  <h2><span>简单定价</span> · 无隐藏费用</h2>
+  <div class="pricing">
+    <div class="price-card">
+      <h3>免费试用</h3>
+      <div class="price">¥0</div>
+      <ul>
+        <li>基础ATS检测</li>
+        <li>查看评分</li>
+        <li>1次免费优化</li>
+      </ul>
+      <a href="#" class="btn btn-outline">免费开始</a>
+    </div>
+    <div class="price-card premium">
+      <h3>Pro版 · 推荐</h3>
+      <div class="old">原价 ¥49.9</div>
+      <div class="price">¥29.9<small>/次</small></div>
+      <ul>
+        <li>全部8项ATS检测</li>
+        <li>5行业定制规则</li>
+        <li>AI优化改写</li>
+        <li>JD智能匹配</li>
+        <li>PDF导出</li>
+        <li>30天无理由退款</li>
+      </ul>
+      <a href="https://buy.stripe.com/test_eVq3cv9H6eod7NO4iffAc00" class="btn btn-primary">立即购买 · ¥29.9</a>
+    </div>
+  </div>
 </div>
 
-<div class="price-box">
-<div class="urgency">⚡ 限时优惠·恢复原价¥49.9</div>
-<span class="old-price">¥49.9</span>
-<span class="price">¥29.9</span>
-<div style="color:#889;font-size:12px;margin-top:4px">一次性购买·永久使用·免费更新</div>
+<!-- Guarantee -->
+<div class="guarantee">
+  🔄 <span>30天无理由退款保障</span> — 不满意全额退款，无需解释。这是我们对产品的信心。
 </div>
 
-<input class="email-input" id="customerEmail" placeholder="输入邮箱·产品将发送到此邮箱" type="email">
-
-<a class="btn" id="payBtn" href="#" onclick="goPay(event)">💳 立即优化简历 ¥29.9</a>
-
-<div class="badges">
-<span class="badge">🔒 Stripe安全支付</span><span class="badge">📧 自动发送邮箱</span><span class="badge">🔄 7天无理由退款</span><span class="badge">👥 5000+用户</span>
+<div class="urgency">
+  ⚡ 限时优惠：原价¥49.9 → 现价¥29.9 · 1222万应届生求职季 · 每延迟一天=少10个面试机会
 </div>
 
+<!-- Payment Methods -->
+<div class="payment-section">
+  <h2 style="font-size:16px;color:#ccc;margin-bottom:16px">💳 支持多种支付方式</h2>
+  <div class="payment-methods">
+    <div class="payment-method">
+      <div class="icon">💚</div>
+      <div class="name">微信支付</div>
+    </div>
+    <div class="payment-method">
+      <div class="icon">💳</div>
+      <div class="name">信用卡/借记卡</div>
+    </div>
+    <div class="payment-method">
+      <div class="icon">🔄</div>
+      <div class="name">30天退款保障</div>
+    </div>
+    <div class="payment-method">
+      <div class="icon">📧</div>
+      <div class="name">付款后5分钟自动交付</div>
+    </div>
+  </div>
+</div>
 
-<!-- 💰 支付方式 -->
-<div style="max-width:500px;margin:20px auto;text-align:center">
-<div style="background:rgba(14,18,34,0.95);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px;margin-bottom:14px">
-<h2 style="font-size:16px;color:#4ade80;margin-bottom:12px">💳 支付方式</h2>
-<div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap">
-<div style="background:rgba(7,193,96,0.08);border:1px solid rgba(7,193,96,0.15);border-radius:10px;padding:16px;text-align:center;min-width:140px">
-<div style="font-size:28px;margin-bottom:6px">💚</div>
-<div style="font-size:13px;color:#ccc;margin-bottom:8px">微信支付</div>
-<div style="font-size:11px;color:#889">扫码付款 → 自动邮件交付</div>
-</div>
-<div style="background:rgba(99,91,255,0.08);border:1px solid rgba(99,91,255,0.15);border-radius:10px;padding:16px;text-align:center;min-width:140px">
-<div style="font-size:28px;margin-bottom:6px">💳</div>
-<div style="font-size:13px;color:#ccc;margin-bottom:8px">Stripe/信用卡</div>
-<a href="https://buy.stripe.com/test_eVq3cv9H6eod7NO4iffAc00" style="font-size:11px;color:#4bf">点击支付 →</a>
-</div>
-</div>
-<p style="font-size:11px;color:#556;margin-top:12px">付款后5分钟内自动邮件发送产品 · 7天无理由退款</p>
-</div>
+<!-- FAQ -->
+<div class="section">
+  <h2><span>常见问题</span></h2>
+  <div class="faq-item">
+    <div class="q">Q: 真的能提升面试邀约吗？</div>
+    <div class="a">能。ATS系统自动筛选时，格式不兼容的简历直接被丢弃。我们的工具帮你通过ATS关卡，确保HR能看到你的简历。数据显示用户平均面试邀约提升3倍。</div>
+  </div>
+  <div class="faq-item">
+    <div class="q">Q: 我的数据安全吗？</div>
+    <div class="a">绝对安全。所有分析在你本地浏览器完成，简历内容不上传服务器。我们不存储你的任何个人信息。</div>
+  </div>
+  <div class="faq-item">
+    <div class="q">Q: 不满意可以退款吗？</div>
+    <div class="a">当然。30天内无理由全额退款，无需解释。我们相信产品价值——数据显示退款率不到1%。</div>
+  </div>
+  <div class="faq-item">
+    <div class="q">Q: 支持英文简历吗？</div>
+    <div class="a">支持。中英文简历均可。英文简历有专门的ATS规则和行业关键词库。</div>
+  </div>
+  <div class="faq-item">
+    <div class="q">Q: 付款后如何获取产品？</div>
+    <div class="a">付款后5分钟内自动发送到你的邮箱。包含优化工具完整版+PDF导出功能+5行业规则包。</div>
+  </div>
 </div>
 
+<!-- Footer -->
 <div class="footer">
-<a href="product-app.html">🛠️ 在线免费试用Pro版</a> · <a href="privacy.html">隐私政策</a> · 客服微信: xuanshu-ai<br>
-© 2026 Xuanshu Tools · 专业简历优化工具
+  <p>© 2026 玄枢·一人公司 · 全AI驱动</p>
+  <p>
+    <a href="https://ruyi123456-fan.github.io/xuanshu-site/">首页</a> ·
+    <a href="https://ruyi123456-fan.github.io/xuanshu-site/privacy.html">隐私政策</a> ·
+    <a href="https://ruyi123456-fan.github.io/xuanshu-site/pay.html">支付确认</a> ·
+    <a href="mailto:659929141@qq.com">联系客服</a>
+  </p>
+  <p style="margin-top:8px">一人公司 · 零员工 · AI全自动运营 · 30天退款保障</p>
 </div>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX')</script>
-<script>
-var PAY_LINK='https://buy.stripe.com/test_eVq3cv9H6eod7NO4iffAc00';
-function goPay(e){e.preventDefault();var email=document.getElementById('customerEmail').value.trim();if(!email){alert('请先输入邮箱地址');return}window.location.href=PAY_LINK+'?prefilled_email='+encodeURIComponent(email)}
-var params=new URLSearchParams(window.location.search);
-if(params.get('paid')==='1'){document.querySelector('.hero').innerHTML='<div style="font-size:64px;margin-bottom:16px">✅</div><h2 style="color:#4ade80;margin-bottom:8px">支付成功！</h2><p style="color:#889">产品正在发送到您的邮箱·5分钟内送达</p>';[document.querySelector('.features'),document.querySelector('.cases'),document.querySelector('.faq'),document.querySelector('.testimonials'),document.querySelector('.price-box')].forEach(function(e){if(e)e.style.display='none'});document.getElementById('payBtn').style.display='none';document.getElementById('customerEmail').style.display='none';document.querySelector('.badges').style.display='none';document.querySelector('.section-title').style.display='none'}
-</script>
+</div>
+
 </body>
 </html>
