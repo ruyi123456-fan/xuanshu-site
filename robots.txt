@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ruyi123456-fan.github.io/xuanshu-site/sitemap.xml
