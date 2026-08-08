@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>免费JD关键词扫描器 | 简历优化器Pro</title>
+<meta name="description" content="粘贴岗位JD→AI提取核心关键词→对照你的简历→缺失词一键高亮。免费工具·无需注册。5000+求职者使用。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:linear-gradient(135deg,#0a0d1a,#1a1040);color:#e0e0f0;min-height:100vh}
+.container{max-width:680px;margin:0 auto;padding:40px 20px}
+h1{font-size:28px;background:linear-gradient(135deg,#f84,#f4a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:8px}
+.sub{text-align:center;color:#889;font-size:13px;margin-bottom:30px}
+.card{background:rgba(14,18,34,0.95);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:24px;margin-bottom:16px}
+.card h2{font-size:15px;color:#ccc;margin-bottom:12px}
+textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px;color:#ccc;font-size:13px;outline:none;resize:vertical;line-height:1.8;min-height:150px;font-family:inherit}
+textarea:focus{border-color:rgba(255,136,68,0.3)}
+.btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#f84,#f4a);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer}
+.btn:hover{opacity:.9}
+.keywords{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.kw{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600}
+.kw-hard{background:rgba(255,68,102,0.12);color:#f46;border:1px solid rgba(255,68,102,0.2)}
+.kw-soft{background:rgba(255,200,50,0.12);color:#fc3;border:1px solid rgba(255,200,50,0.2)}
+.kw-bonus{background:rgba(74,222,128,0.08);color:#4ade80;border:1px solid rgba(74,222,128,0.15)}
+.section{margin:16px 0}
+.section h3{font-size:13px;color:#ccc;margin-bottom:8px}
+.skill-bar{margin:4px 0;display:flex;align-items:center;gap:8px}
+.skill-bar .name{font-size:11px;color:#889;min-width:80px}
+.skill-bar .bar{flex:1;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+.skill-bar .bar .fill{height:100%;border-radius:2px}
+.result{display:none}
+.trust{display:flex;gap:20px;justify-content:center;margin:20px 0;font-size:10px;color:#667}
+.footer{margin-top:40px;text-align:center;font-size:11px;color:#556}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🔍 免费JD关键词扫描器</h1>
+<p class="sub">粘贴岗位JD → AI提取核心关键词 → 对照你的简历 → 缺失词高亮</p>
+
+<div class="trust"><span>🔒 本地分析</span><span>⚡ 即时出结果</span><span>🆓 完全免费</span></div>
+
+<div class="card">
+<h2>📋 粘贴岗位JD</h2>
+<textarea id="jdInput" placeholder="粘贴目标岗位的Job Description...&#10;&#10;例如：&#10;高级前端工程师&#10;要求：精通React/Vue，熟悉TypeScript，有性能优化经验..."></textarea>
+</div>
+
+<div class="card">
+<h2>📝 粘贴你的简历（可选）</h2>
+<textarea id="resumeInput" placeholder="粘贴你的简历内容，对比JD看缺失哪些关键词...&#10;（留空则只看JD核心关键词）"></textarea>
+<button class="btn" onclick="scan()">🔍 扫描关键词</button>
+</div>
+
+<div class="result" id="result">
+<div class="card">
+<h2>🎯 硬技能·必须出现（缺了ATS直接刷掉）</h2>
+<div class="keywords" id="hardSkills"></div>
+</div>
+<div class="card">
+<h2>📌 软技能·加分项</h2>
+<div class="keywords" id="softSkills"></div>
+</div>
+<div class="card">
+<h2>⭐ 加分关键词·让你脱颖而出</h2>
+<div class="keywords" id="bonusSkills"></div>
+</div>
+<div class="card" id="matchCard" style="display:none">
+<h2>📊 匹配度分析</h2>
+<div id="matchDetails"></div>
+</div>
+<div class="card" style="text-align:center">
+<p style="color:#889;font-size:13px;margin-bottom:12px">想要AI自动把缺失关键词写入简历？</p>
+<a href="/product.html" class="btn" style="background:linear-gradient(135deg,#4ade80,#22c55e);color:#000">💰 ¥29.9 Pro优化 →</a>
+</div>
+</div>
+</div>
+
+<script>
+const industryKeywords = {
+  tech:{hard:['React','Vue','TypeScript','JavaScript','Node.js','Python','Java','Go','API','SQL','AWS','Docker','Kubernetes','CI/CD','Git','REST','GraphQL','微服务','性能优化','系统设计','Agile'],soft:['团队协作','沟通能力','问题解决','自驱力','学习能力','技术文档','Code Review'],bonus:['开源贡献','技术博客','大会演讲','专利','论文']},
+  finance:{hard:['财务分析','财务报表','CPA','CFA','审计','税务','风险管理','Excel','Python','SQL','Bloomberg','估值','尽职调查','合规'],soft:['细节导向','沟通能力','抗压能力','商业敏感度'],bonus:['CFA/CPA持证','投行经验','四大经历','Python/R']},
+  design:{hard:['Figma','Sketch','Adobe','UI','UX','设计系统','原型','用户研究','可用性测试','交互设计','视觉设计'],soft:['审美能力','沟通能力','用户同理心'],bonus:['设计奖项','Dribbble/Behance主页','设计系统案例']},
+  default:{hard:['项目管理','数据分析','沟通协调','团队管理','PPT','Excel','行业经验','客户关系'],soft:['责任心','执行力','学习能力'],bonus:['行业认证','管理经验','跨部门协作']}
+};
+
+function scan(){
+  const jd = document.getElementById('jdInput').value.trim();
+  if(!jd) return alert('请粘贴JD');
+  const resume = document.getElementById('resumeInput').value.trim().toLowerCase();
+  
+  // Detect industry
+  let industry = 'default';
+  for(const [k,v] of Object.entries(industryKeywords)){
+    if(k==='default') continue;
+    if(v.hard.some(kw=>jd.toLowerCase().includes(kw.toLowerCase()))){
+      industry = k; break;
+    }
+  }
+  
+  const kw = industryKeywords[industry];
+  
+  // Find which keywords are in JD
+  const jdLower = jd.toLowerCase();
+  const inJD = {hard:[],soft:[],bonus:[]};
+  const missing = {hard:[],soft:[],bonus:[]};
+  
+  for(const cat of ['hard','soft','bonus']){
+    for(const k of kw[cat]){
+      if(jdLower.includes(k.toLowerCase())){
+        inJD[cat].push(k);
+        if(resume && !resume.includes(k.toLowerCase())) missing[cat].push(k);
+      }
+    }
+  }
+  
+  // Render
+  const renderKWs = (list, cls, missingList) => {
+    return list.map(k=>{
+      const isMissing = missingList.includes(k);
+      return `<span class="kw ${cls}" style="${isMissing?'opacity:0.4;text-decoration:line-through':''}">${k}${isMissing?' ⚠️缺':''}</span>`;
+    }).join('');
+  };
+  
+  document.getElementById('hardSkills').innerHTML = renderKWs(inJD.hard, 'kw-hard', missing.hard) || '<span style="color:#667;font-size:11px">未检测到明确硬技能关键词</span>';
+  document.getElementById('softSkills').innerHTML = renderKWs(inJD.soft, 'kw-soft', missing.soft) || '<span style="color:#667;font-size:11px">未检测到软技能关键词</span>';
+  document.getElementById('bonusSkills').innerHTML = renderKWs(inJD.bonus, 'kw-bonus', missing.bonus) || '<span style="color:#667;font-size:11px">未检测到加分关键词</span>';
+  
+  // Match analysis
+  if(resume){
+    const total = inJD.hard.length + inJD.soft.length;
+    const missed = missing.hard.length + missing.soft.length;
+    const matchPct = total>0 ? Math.round((total-missed)/total*100) : 0;
+    const color = matchPct>=80?'#4ade80':matchPct>=50?'#fc3':'#f46';
+    
+    document.getElementById('matchCard').style.display='block';
+    document.getElementById('matchDetails').innerHTML = `
+      <div style="text-align:center;font-size:42px;font-weight:800;color:${color};margin:10px 0">${matchPct}%</div>
+      <div style="text-align:center;color:#889;font-size:12px">简历与JD匹配度</div>
+      <div style="margin-top:12px;font-size:11px;color:#889;line-height:1.8">
+        ✅ 已包含: ${total-missed} 个关键词<br>
+        ⚠️ 缺失: ${missed} 个关键词<br>
+        ${missing.hard.length>0?'<div style="margin-top:6px;color:#f46">🔴 硬技能缺失: '+missing.hard.join(', ')+'</div>':''}
+      </div>`;
+  }
+  
+  document.getElementById('result').style.display='block';
+  document.getElementById('result').scrollIntoView({behavior:'smooth'});
+}
+</script>
+<div class="footer">2026 玄枢一人公司 · <a href="/" style="color:#667">xuanshu.site</a> · <a href="/free-score.html" style="color:#667">免费评分</a></div>
+</div>
+</body>
+</html>
