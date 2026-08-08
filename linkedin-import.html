@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>LinkedIn简历导入 | 简历优化器Pro</title>
+<meta name="description" content="从LinkedIn一键导入简历。粘贴LinkedIn个人页URL→自动提取经历→AI优化。免费工具·无需注册。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:linear-gradient(135deg,#0a0d1a,#1a1040);color:#e0e0f0;min-height:100vh}
+.container{max-width:600px;margin:0 auto;padding:40px 20px}
+h1{font-size:26px;background:linear-gradient(135deg,#f84,#f4a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:8px}
+.sub{text-align:center;color:#889;font-size:13px;margin-bottom:30px}
+.card{background:rgba(14,18,34,0.95);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:24px;margin-bottom:16px}
+input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px;color:#ccc;font-size:14px;outline:none}
+input:focus{border-color:rgba(255,136,68,0.3)}
+.btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#f84,#f4a);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;margin-top:12px}
+.btn:hover{opacity:.9}
+textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px;color:#ccc;font-size:13px;outline:none;resize:vertical;min-height:200px;line-height:1.8;font-family:inherit}
+.output{display:none}
+.tip{font-size:11px;color:#667;text-align:center;margin:12px 0;line-height:1.6}
+.trust{display:flex;gap:20px;justify-content:center;margin:20px 0;font-size:10px;color:#667}
+.footer{margin-top:40px;text-align:center;font-size:11px;color:#556}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🔗 LinkedIn简历导入</h1>
+<p class="sub">从LinkedIn一键提取·AI自动优化·导出标准简历</p>
+
+<div class="trust"><span>🔒 本地处理</span><span>⚡ 即时转换</span><span>🆓 免费工具</span></div>
+
+<div class="card">
+<h2 style="font-size:14px;color:#ccc;margin-bottom:12px">📎 方法1：粘贴LinkedIn个人页文本</h2>
+<p class="tip">打开你的LinkedIn个人页 → 全选复制(Cmd+A, Cmd+C) → 粘贴到这里</p>
+<textarea id="linkedinText" placeholder="粘贴LinkedIn个人页的全部文本内容...&#10;&#10;包含你的工作经历、教育背景、技能等..."></textarea>
+</div>
+
+<div class="card">
+<h2 style="font-size:14px;color:#ccc;margin-bottom:12px">✍️ 方法2：直接写（更快）</h2>
+<textarea id="manualInput" placeholder="或者直接写你的经历：&#10;&#10;张三 | 前端工程师 | 3年经验&#10;精通React/Vue/TypeScript&#10;&#10;工作经历：&#10;2022-至今 字节跳动 高级前端&#10;- 主导XX项目...&#10;&#10;教育：&#10;2018-2022 XX大学 计算机科学"></textarea>
+<button class="btn" onclick="convert()">✨ 转换为标准简历</button>
+</div>
+
+<div class="output" id="output">
+<div class="card">
+<h2 style="font-size:14px;color:#4ade80;margin-bottom:12px">✅ 简历已生成</h2>
+<textarea id="result" readonly style="min-height:300px"></textarea>
+<div style="display:flex;gap:8px;margin-top:12px">
+<button class="btn" style="background:rgba(74,222,128,0.08);color:#4ade80;border:1px solid rgba(74,222,128,0.2)" onclick="copyResult()">📋 复制</button>
+<a href="/product.html" class="btn" style="background:linear-gradient(135deg,#4ade80,#22c55e);color:#000;text-align:center;text-decoration:none;font-size:14px;padding:14px">💰 AI优化 ¥29.9 →</a>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+function convert(){
+  let text = document.getElementById('linkedinText').value.trim() || document.getElementById('manualInput').value.trim();
+  if(!text) return alert('请粘贴LinkedIn内容或手动输入');
+  
+  // Parse name
+  let name = '未识别';
+  const nameMatch = text.match(/^([^\n]{2,20})[|\n·]/);
+  if(nameMatch) name = nameMatch[1].trim();
+  
+  // Parse title
+  let title = '';
+  const titleMatch = text.match(/(前端|后端|全栈|产品|设计|数据|运营|市场|销售|工程师|经理|总监|分析师|架构师|开发|测试|运维)[^\n]{0,20}/);
+  if(titleMatch) title = titleMatch[0];
+  
+  // Parse experience (lines with company names or dates)
+  const lines = text.split('\n');
+  const experience = [];
+  const education = [];
+  const skills = [];
+  let currentSection = '';
+  
+  for(const line of lines){
+    const l = line.trim();
+    if(!l) continue;
+    if(l.includes('经历')||l.includes('Experience')||l.includes('工作')){
+      currentSection = 'exp'; continue;
+    }
+    if(l.includes('教育')||l.includes('Education')||l.includes('学校')){
+      currentSection = 'edu'; continue;
+    }
+    if(l.includes('技能')||l.includes('Skills')||l.includes('擅长')){
+      currentSection = 'skill'; continue;
+    }
+    
+    if(currentSection === 'exp' && (/\d{4}/.test(l) || l.includes('公司')||l.includes('有限')||l.includes('科技'))){
+      experience.push(l);
+    }
+    if(currentSection === 'edu' && l.length>5){
+      education.push(l);
+    }
+    if(currentSection === 'skill' && l.length>3){
+      skills.push(l);
+    }
+  }
+  
+  // Build resume
+  let resume = `${name}\n${title || '求职者'}\n\n`;
+  resume += `📧 从LinkedIn导入 | 简历优化器Pro\n\n`;
+  resume += `💼 工作经历\n${'-'.repeat(40)}\n`;
+  experience.slice(0,5).forEach(e => resume += `${e}\n`);
+  if(!experience.length) resume += '(从原文本提取·可能需要手动调整)\n';
+  
+  resume += `\n🎓 教育背景\n${'-'.repeat(40)}\n`;
+  education.slice(0,3).forEach(e => resume += `${e}\n`);
+  
+  resume += `\n🛠 技能\n${'-'.repeat(40)}\n`;
+  skills.slice(0,8).forEach(s => resume += `• ${s}\n`);
+  
+  resume += `\n---\n通过 简历优化器Pro 生成 | xuanshu.site`;
+  
+  document.getElementById('result').value = resume;
+  document.getElementById('output').style.display = 'block';
+  document.getElementById('output').scrollIntoView({behavior:'smooth'});
+}
+
+function copyResult(){
+  const r = document.getElementById('result');
+  r.select();
+  document.execCommand('copy');
+  alert('已复制到剪贴板！');
+}
+</script>
+<div class="footer">2026 玄枢一人公司 · <a href="/" style="color:#667">xuanshu.site</a></div>
+</div>
+</body>
+</html>
