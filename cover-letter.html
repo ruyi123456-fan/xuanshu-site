@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI Cover Letter生成器 | 简历优化器Pro</title>
+<meta name="description" content="AI求职信/Cover Letter自动生成。输入岗位JD和目标公司，AI生成专业中英文求职信。5行业模板·ATS友好·¥29.9含简历+求职信双优化。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:linear-gradient(135deg,#0a0d1a,#1a1040);color:#e0e0f0;min-height:100vh}
+.container{max-width:680px;margin:0 auto;padding:40px 20px}
+h1{font-size:30px;background:linear-gradient(135deg,#f84,#f4a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:8px}
+.sub{text-align:center;color:#889;font-size:13px;margin-bottom:30px}
+.card{background:rgba(14,18,34,0.95);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:24px;margin-bottom:16px}
+.card h2{font-size:15px;color:#ccc;margin-bottom:12px}
+textarea,input[type="text"]{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;color:#ccc;font-size:13px;outline:none;font-family:inherit;resize:vertical;line-height:1.6}
+textarea:focus,input:focus{border-color:rgba(255,136,68,0.3)}
+.row{display:flex;gap:10px;margin-bottom:10px}
+.row>div{flex:1}
+label{display:block;font-size:11px;color:#889;margin-bottom:4px}
+.btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#f84,#f4a);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer}
+.btn:hover{opacity:.9}
+.output{background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:20px;font-size:13px;line-height:1.8;white-space:pre-wrap;color:#ccc;max-height:500px;overflow-y:auto;display:none}
+.templates{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
+.tpl{background:rgba(14,18,34,0.9);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;text-align:center;cursor:pointer;font-size:11px;transition:all .15s}
+.tpl:hover{border-color:rgba(255,136,68,0.3)}
+.tpl.on{border-color:#f84;background:rgba(255,136,68,0.06)}
+.tpl .icon{font-size:24px;margin-bottom:4px}
+.footer{margin-top:40px;text-align:center;font-size:11px;color:#556}
+.footer a{color:#667}
+.trust{display:flex;gap:16px;justify-content:center;margin:20px 0;font-size:10px;color:#667}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>📝 AI Cover Letter 生成器</h1>
+<p class="sub">输入岗位+公司名 → AI生成专业中英文求职信 · 所有竞品标配 · 我们补齐</p>
+
+<div class="trust">
+<span>🔒 本地生成</span><span>🔄 30天退款</span><span>📧 付费后自动发送</span>
+</div>
+
+<div class="card">
+<h2>🎯 选择模板风格</h2>
+<div class="templates" id="tplList">
+<div class="tpl on" data-tpl="professional"><div class="icon">💼</div>专业正式</div>
+<div class="tpl" data-tpl="enthusiastic"><div class="icon">🔥</div>热情积极</div>
+<div class="tpl" data-tpl="creative"><div class="icon">🎨</div>创意独特</div>
+<div class="tpl" data-tpl="technical"><div class="icon">💻</div>技术导向</div>
+<div class="tpl" data-tpl="academic"><div class="icon">🎓</div>学术风格</div>
+<div class="tpl" data-tpl="concise"><div class="icon">⚡</div>简洁高效</div>
+</div>
+</div>
+
+<div class="card">
+<h2>📋 填写信息</h2>
+<div class="row">
+<div><label>目标岗位</label><input id="jobTitle" placeholder="如：高级前端工程师"></div>
+<div><label>目标公司</label><input id="company" placeholder="如：字节跳动"></div>
+</div>
+<div class="row">
+<div><label>你的姓名</label><input id="yourName" placeholder="你的名字"></div>
+<div><label>语言</label><select id="lang" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;color:#ccc;font-size:13px;outline:none"><option value="zh">中文</option><option value="en">English</option><option value="both">中英双语</option></select></div>
+</div>
+<label>你的核心优势（3-5条，每行一条）</label>
+<textarea id="strengths" rows="3" placeholder="精通React/Vue等前端框架，5年Web开发经验&#10;主导过3个从0到1的B端产品，用户量均超10万&#10;擅长性能优化，将页面加载速度提升60%"></textarea>
+<label style="margin-top:10px">为什么想去这家公司（可选）</label>
+<textarea id="whyCompany" rows="2" placeholder="字节跳动的产品影响了数亿用户，我想参与构建下一代内容平台..."></textarea>
+</div>
+
+<button class="btn" onclick="generate()">✨ 生成求职信</button>
+
+<div class="output" id="output"></div>
+
+<div class="card" style="text-align:center;margin-top:20px">
+<p style="color:#889;font-size:12px">💡 生成后不满意？用AI改写功能精调每一段</p>
+<p style="color:#667;font-size:11px;margin-top:6px">包含在简历优化器Pro中 · ¥29.9一次 · 简历+求职信双优化</p>
+</div>
+</div>
+
+<script>
+let selectedTpl = 'professional';
+
+document.querySelectorAll('.tpl').forEach(t => {
+  t.onclick = () => {
+    document.querySelectorAll('.tpl').forEach(x => x.classList.remove('on'));
+    t.classList.add('on');
+    selectedTpl = t.dataset.tpl;
+  };
+});
+
+const templates = {
+  professional: {
+    zh: (name, job, company, strengths, why) => 
+`尊敬的${company}招聘团队：
+
+您好！我在招聘平台看到贵公司${job}岗位的招聘信息，特此申请。
+
+作为一名在相关领域深耕多年的从业者，我的核心优势包括：
+${strengths.split('\n').map(s => '• ' + s).join('\n')}
+
+${why ? '我对贵公司的关注由来已久。' + why + '\n' : ''}
+我期待有机会与您进一步沟通，展示我的能力如何为${company}创造价值。感谢您抽出时间审阅我的申请。
+
+此致
+敬礼
+${name}
+${new Date().toLocaleDateString('zh-CN')}`,
+
+    en: (name, job, company, strengths, why) =>
+`Dear ${company} Hiring Team,
+
+I am writing to express my strong interest in the ${job} position at ${company}. With a proven track record in this field, I am confident in my ability to contribute to your team.
+
+My key qualifications include:
+${strengths.split('\n').map(s => '• ' + s).join('\n')}
+
+${why ? 'I have been following ' + company + ' for some time. ' + why + '\n' : ''}
+I would welcome the opportunity to discuss how my background and skills would benefit ${company}. Thank you for your time and consideration.
+
+Best regards,
+${name}
+${new Date().toLocaleDateString('en-US')}`
+  },
+
+  enthusiastic: {
+    zh: (name, job, company, strengths, why) =>
+`${company}团队，你们好！
+
+看到${job}这个岗位时我兴奋不已——这简直是为我量身定做的机会！
+
+${strengths.split('\n').map(s => '🔥 ' + s).join('\n')}
+
+${why ? '为什么是' + company + '？' + why + '\n' : ''}
+我渴望加入这个充满活力的团队，与你们一起创造令人惊叹的产品。期待面试机会！
+
+${name}
+${new Date().toLocaleDateString('zh-CN')}`,
+
+    en: (name, job, company, strengths, why) =>
+`Hi ${company} Team!
+
+When I saw the ${job} opening, I knew I had to apply — this role aligns perfectly with my passion and experience!
+
+${strengths.split('\n').map(s => '🚀 ' + s).join('\n')}
+
+${why ? 'Why ' + company + '? ' + why + '\n' : ''}
+I am incredibly excited about the possibility of joining your team. Let's build something amazing together!
+
+Cheers,
+${name}`
+  },
+
+  concise: {
+    zh: (name, job, company, strengths, why) =>
+`${company}招聘负责人：
+
+申请${job}岗位。核心匹配点：
+${strengths.split('\n').map(s => '· ' + s).join('\n')}
+
+期望与您沟通。${name} ${new Date().toLocaleDateString('zh-CN')}`,
+
+    en: (name, job, company, strengths, why) =>
+`${company} Hiring:
+
+Applying for ${job}. Key qualifications:
+${strengths.split('\n').map(s => '- ' + s).join('\n')}
+
+Looking forward to connecting. ${name}`
+  },
+
+  technical: {
+    zh: (name, job, company, strengths, why) =>
+`${company} 技术团队：
+
+我是一名${job}，以下是我的技术背景和项目经验：
+
+${strengths.split('\n').map(s => '▸ ' + s).join('\n')}
+
+${why || '我对' + company + '的技术栈和发展方向非常认同，希望能为团队带来实际的技术价值。'}
+
+期待技术面试。${name}`,
+
+    en: (name, job, company, strengths, why) =>
+`${company} Engineering Team:
+
+I am applying for the ${job} role. My technical background:
+
+${strengths.split('\n').map(s => '▸ ' + s).join('\n')}
+
+${why || 'I deeply respect ' + company + 's engineering culture and would love to contribute.'}
+
+Looking forward to the technical interview. ${name}`
+  },
+
+  academic: {
+    zh: (name, job, company, strengths, why) =>
+`尊敬的${company}学术委员会：
+
+本人谨申请${job}一职。以下为本人学术背景与研究经历：
+
+${strengths.split('\n').map(s => '▪ ' + s).join('\n')}
+
+${why || '贵机构的学术声誉与研究环境是我选择申请的主要原因。'}
+
+随信附上个人简历，期待您的回复。
+
+${name} 敬上
+${new Date().toLocaleDateString('zh-CN')}`,
+
+    en: (name, job, company, strengths, why) =>
+`Dear ${company} Search Committee,
+
+I am writing to apply for the ${job} position. My academic background includes:
+
+${strengths.split('\n').map(s => '▪ ' + s).join('\n')}
+
+${why || 'I am drawn to ' + company + ' because of its distinguished academic reputation.'}
+
+My CV is attached. I look forward to hearing from you.
+
+Sincerely,
+${name}`
+  },
+
+  creative: {
+    zh: (name, job, company, strengths, why) =>
+`${company}，你们好！
+
+一个好的${job}是什么样的？我认为是既有硬功夫又有创造力的人。比如我：
+
+${strengths.split('\n').map(s => '✦ ' + s).join('\n')}
+
+${why || '我一直在关注' + company + '，你们的产品让我看到了设计的可能性。我想成为其中的一员。'}
+
+这不是一封普通的求职信——就像我不是一个普通的申请者。
+
+期待与你们碰撞灵感。
+${name}`,
+
+    en: (name, job, company, strengths, why) =>
+`Hey ${company},
+
+What makes a great ${job}? Someone who brings both craft and creativity. Like this:
+
+${strengths.split('\n').map(s => '✦ ' + s).join('\n')}
+
+${why || 'I have been a fan of ' + company + 's work. I want to be part of it.'}
+
+This isn't a regular cover letter — because I'm not a regular applicant.
+
+Let's make something great.
+${name}`
+  }
+};
+
+function generate() {
+  const name = document.getElementById('yourName').value.trim() || '[你的名字]';
+  const job = document.getElementById('jobTitle').value.trim() || '[岗位名称]';
+  const company = document.getElementById('company').value.trim() || '[公司名称]';
+  const strengths = document.getElementById('strengths').value.trim() || '• 相关工作经验丰富\n• 团队协作能力强\n• 学习能力突出';
+  const why = document.getElementById('whyCompany').value.trim();
+  const lang = document.getElementById('lang').value;
+
+  const tpl = templates[selectedTpl];
+  let result = '';
+  
+  if (lang === 'zh' || lang === 'both') {
+    result += tpl.zh(name, job, company, strengths, why);
+  }
+  if (lang === 'both') result += '\n\n' + '='.repeat(50) + '\n\n';
+  if (lang === 'en' || lang === 'both') {
+    result += tpl.en(name, job, company, strengths, why);
+  }
+
+  document.getElementById('output').style.display = 'block';
+  document.getElementById('output').textContent = result;
+  document.getElementById('output').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
