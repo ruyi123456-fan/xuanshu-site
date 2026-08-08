@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI入门到精通·在线课程</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,'PingFang SC',sans-serif}
+body{background:#0a0d1a;color:#c8cce0;min-height:100vh;display:flex}
+.sidebar{width:220px;background:rgba(14,18,34,0.95);padding:16px;overflow-y:auto;border-right:1px solid rgba(255,255,255,0.05)}
+.sidebar h2{font-size:14px;color:#4ade80;margin-bottom:12px}
+.lesson{cursor:pointer;padding:10px;border-radius:8px;margin:4px 0;font-size:12px;color:#889;border-left:3px solid transparent;transition:.15s}
+.lesson:hover{background:rgba(255,255,255,0.03);color:#ccc}
+.lesson.active{border-left-color:#4ade80;background:rgba(74,222,128,0.05);color:#4ade80}
+.lesson .num{font-size:9px;color:#556}
+.content{flex:1;padding:30px;overflow-y:auto;max-width:700px}
+.content h1{font-size:22px;color:#ccc;margin-bottom:8px}
+.content .section{margin:16px 0;padding:16px;background:rgba(14,18,34,0.7);border-radius:10px;border:1px solid rgba(255,255,255,0.04)}
+.content h3{font-size:14px;color:#4ade80;margin-bottom:8px}
+.content p{font-size:13px;color:#889;line-height:1.8}
+.content ul{margin-left:16px;font-size:13px;color:#889;line-height:2}
+.progress-bar{height:4px;background:rgba(255,255,255,0.05);border-radius:2px;margin:16px 0}
+.progress-fill{height:100%;background:#4ade80;border-radius:2px;transition:width .3s}
+.btn{background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);color:#4ade80;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:13px}
+</style></head><body>
+<div class="sidebar">
+<h2>📚 课程目录</h2>
+<div id="lessons"></div>
+<div style="margin-top:16px;font-size:10px;color:#667">进度: <span id="progressPct" style="color:#4ade80">0%</span></div>
+<div class="progress-bar"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
+</div>
+<div class="content" id="content"></div>
+<script>
+var LESSONS=[
+{title:"AI是什么",concept:"人工智能=让机器模拟人类智能。包括机器学习(从数据中学习)、深度学习(多层神经网络)、自然语言处理(理解文字)",steps:["理解AI≠机器人","区分AI/ML/DL","了解GPT类模型原理"],mistake:"以为AI什么都能做——AI擅长模式识别，不擅长真正理解",practice:"用ChatGPT完成3个任务，对比人工结果"},
+{title:"提示词工程",concept:"提示词=你和AI对话的语言。好的提示词=角色+任务+格式+示例",steps:["设定AI角色(你是XX专家)","明确任务(做什么)","指定格式(输出JSON/表格)","提供示例(few-shot)"],mistake:"提示词太模糊——'帮我写文章'不如'你是科技博主，写一篇800字关于AI的文章，分3段，每段有小标题'",practice:"优化3个模糊提示词，对比优化前后的AI输出质量"},
+{title:"AI工具链",concept:"一人公司必备AI工具栈：ChatGPT(对话)、Claude(写作)、Midjourney(图片)、Cursor(编程)",steps:["注册ChatGPT/Claude","安装Cursor AI编辑器","学习用AI生成代码","搭建自动化工作流"],mistake:"只用免费版——付费版质量差很多。¥20/月的ChatGPT Plus值得",practice:"用Cursor AI写一个简单的网页计算器"},
+{title:"AI自动化",concept:"用AI替代重复劳动：自动回复邮件、自动生成报告、自动处理数据",steps:["识别重复性任务","用AI API写自动化脚本","设置定时任务(cron)","监控+错误处理"],mistake:"一次性全部自动化——应该逐步来，先自动化1个任务验证",practice:"写一个Python脚本，每天自动发送邮件报告"},
+{title:"AI产品化",concept:"把AI能力封装成产品：落地页+支付+交付+客服。一个人就能跑通全链路",steps:["确定产品形态(工具/课程/服务)","做MVP(最小可用版本)","定价(¥9.9-299)","部署+推广"],mistake:"功能太多——MVP应该只有1个核心功能，先卖出去再迭代",practice:"用1小时做一个AI工具的落地页"},
+{title:"AI变现",concept:"3条路：卖工具(高杠杆)、卖课程(内容驱动)、卖服务(快变现)",steps:["选1条路","做1个产品","找到前10个客户","收集反馈→迭代"],mistake:"同时做3条路——应该先全力做通1条，拿到钱再扩展",practice:"列出3个你能做的AI产品，选1个开始"}
+];
+var currentLesson=0,completed=new Set(JSON.parse(localStorage.getItem('course_progress')||'[]'));
+function renderLessons(){
+  var h='';
+  LESSONS.forEach(function(l,i){
+    var done=completed.has(i);
+    h+='<div class="lesson'+(i===currentLesson?' active':'')+'" onclick="selectLesson('+i+')"><div class="num">第'+(i+1)+'课 '+(done?'✅':'')+'</div>'+l.title+'</div>';
+  });
+  document.getElementById('lessons').innerHTML=h;
+}
+function selectLesson(i){
+  currentLesson=i;completed.add(i);
+  localStorage.setItem('course_progress',JSON.stringify([...completed]));
+  renderLessons();
+  renderContent();
+  updateProgress();
+}
+function renderContent(){
+  var l=LESSONS[currentLesson];
+  var h='<h1>第'+(currentLesson+1)+'课: '+l.title+'</h1>';
+  h+='<div class="section"><h3>📖 核心概念</h3><p>'+l.concept+'</p></div>';
+  h+='<div class="section"><h3>🛠️ 实操步骤</h3><ul>';
+  l.steps.forEach(function(s){h+='<li>'+s+'</li>'});
+  h+='</ul></div>';
+  h+='<div class="section"><h3>⚠️ 常见错误</h3><p>'+l.mistake+'</p></div>';
+  h+='<div class="section"><h3>✏️ 课后练习</h3><p>'+l.practice+'</p></div>';
+  if(currentLesson<LESSONS.length-1)h+='<button class="btn" onclick="selectLesson('+(currentLesson+1)+')">下一课 →</button>';
+  document.getElementById('content').innerHTML=h;
+}
+function updateProgress(){
+  var pct=Math.round(completed.size/LESSONS.length*100);
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressPct').textContent=pct+'%';
+}
+renderLessons();selectLesson(0);updateProgress();
+</script></body></html>

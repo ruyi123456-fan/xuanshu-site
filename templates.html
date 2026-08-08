@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>小红书运营SOP模板库</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,'PingFang SC',sans-serif}
+body{background:#0a0d1a;color:#c8cce0;padding:20px}
+h1{font-size:20px;color:#f84;margin-bottom:4px}
+.sub{font-size:12px;color:#667;margin-bottom:16px}
+.filters{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tag{cursor:pointer;padding:4px 12px;border-radius:14px;font-size:11px;border:1px solid rgba(255,255,255,0.08);color:#889;transition:.15s}
+.tag:hover,.tag.on{background:rgba(255,136,68,0.1);border-color:#f84;color:#f84}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.card{background:rgba(14,18,34,0.9);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:16px;cursor:pointer;transition:.15s}
+.card:hover{border-color:rgba(255,136,68,0.2);transform:translateY(-2px)}
+.card .cat{font-size:9px;color:#f84;margin-bottom:4px}
+.card h3{font-size:14px;color:#ccc;margin-bottom:6px}
+.card .preview{font-size:11px;color:#889;line-height:1.5}
+.card .meta{font-size:9px;color:#556;margin-top:8px;display:flex;gap:12px}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:99;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-box{background:rgba(14,18,34,0.98);border:1px solid rgba(255,136,68,0.2);border-radius:16px;padding:24px;max-width:600px;width:100%;max-height:80vh;overflow-y:auto}
+.modal-box h2{color:#f84;margin-bottom:12px}
+.modal-box .content{font-size:13px;color:#c8cce0;line-height:1.8;white-space:pre-wrap}
+.close{float:right;color:#f46;cursor:pointer;font-size:20px}
+</style></head><body>
+<h1>📱 小红书运营SOP模板库</h1>
+<div class="sub">100套爆款模板 · 按月更新 · 复制即用</div>
+<div class="filters">
+<span class="tag on" onclick="filter('all',this)">全部</span>
+<span class="tag" onclick="filter('涨粉',this)">涨粉</span>
+<span class="tag" onclick="filter('带货',this)">带货</span>
+<span class="tag" onclick="filter('引流',this)">引流</span>
+<span class="tag" onclick="filter('品牌',this)">品牌</span>
+</div>
+<div class="grid" id="grid"></div>
+<div class="modal" id="modal" onclick="this.classList.remove('show')"><div class="modal-box" onclick="event.stopPropagation()"><span class="close" onclick="document.getElementById('modal').classList.remove('show')">✕</span><div id="modalContent"></div></div></div>
+<script>
+var TEMPLATES=[
+{cat:"涨粉",title:"3天涨粉1000的真实方法",preview:"不是玄学，是可复制的步骤。第一步：找到你的定位和人设...",uses:2847,rating:4.8,content:"## 3天涨粉1000的真实方法\n\n### Day 1: 定位\n1. 选1个细分领域（越窄越好）\n2. 研究Top10博主的内容结构\n3. 准备3篇对标内容\n\n### Day 2: 发布\n1. 早8点发第一篇（干货型）\n2. 午12点发第二篇（共鸣型）\n3. 晚8点发第三篇（互动型）\n\n### Day 3: 互动\n1. 回复所有评论\n2. 去同类博主评论区互动\n3. 发布1篇总结复盘\n\n💡 关键指标：收藏>点赞=高价值内容"},
+{cat:"带货",title:"一篇笔记带货3000+的秘密",preview:"不是硬广，是软植入。用户看完不知道是广告但是想买...",uses:1923,rating:4.7,content:"## 一篇笔记带货3000+\n\n### 公式\n痛点(让用户共鸣) → 解决方案(你用过的好东西) → 效果展示 → 购买方式\n\n### 案例\n标题：我用了3个月终于找到了不卡粉的方法\n正文：先说自己的困扰→试过哪些方法→最后找到这个产品→用前后对比图→评论区放链接\n\n⚠️ 不要：标题里放价格/店铺名/明显广告词"},
+{cat:"引流",title:"小红书引流微信的5个合规方法",preview:"不做违规操作，靠内容自然引流。5个方法实测有效...",uses:3102,rating:4.9,content:"## 5个合规引流方法\n\n1. 评论区置顶：'私信我发完整版'\n2. 瞬间功能：发微信二维码图片(24h自动消失)\n3. 群聊引流：建粉丝群→群公告放微信\n4. 合集引流：创建合集→在合集描述放联系方式\n5. 直播引流：直播中口播微信号\n\n⚠️ 避免在正文/标题直接放微信号"},
+{cat:"品牌",title:"个人IP打造·从0到1完整路径",preview:"素人如何建立个人品牌？6个月路线图...",uses:1567,rating:4.6,content:"## 个人IP打造6个月路线图\n\nM1: 定位+内容规划\nM2: 日更30天·测试内容方向\nM3: 找到爆款模式·放大\nM4: 接第一个合作\nM5: 建立付费社群\nM6: 推出自己的产品"},
+{cat:"涨粉",title:"封面图设计的7个铁律",preview:"封面决定点击率。7个规则让你的笔记被更多人看到...",uses:4210,rating:4.9,content:"## 封面图7铁律\n\n1. 大字标题(占封面1/3)\n2. 颜色不超过3种\n3. 人物出镜率高30%\n4. 对比图/前后效果\n5. 加边框更醒目\n6. 统一模板建立辨识度\n7. 测试2-3个版本选最好的"},
+];
+function filter(cat,el){
+  document.querySelectorAll('.tag').forEach(function(t){t.classList.remove('on')});
+  el.classList.add('on');
+  var items=cat==='all'?TEMPLATES:TEMPLATES.filter(function(t){return t.cat===cat});
+  render(items);
+}
+function render(items){
+  var h='';
+  items.forEach(function(t){
+    h+='<div class="card" onclick="openTpl(\''+t.title+'\',\''+t.content.replace(/'/g,"\\'").replace(/\n/g,'\\n')+'\')"><div class="cat">#'+t.cat+'</div><h3>'+t.title+'</h3><div class="preview">'+t.preview+'</div><div class="meta"><span>⭐'+t.rating+'</span><span>'+t.uses+'人使用</span></div></div>';
+  });
+  document.getElementById('grid').innerHTML=h;
+}
+function openTpl(title,content){
+  document.getElementById('modalContent').innerHTML='<h2>'+title+'</h2><div class="content">'+content.replace(/\\n/g,'<br>')+'</div>';
+  document.getElementById('modal').classList.add('show');
+}
+render(TEMPLATES);
+</script></body></html>

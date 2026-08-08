@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI客服机器人</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,'PingFang SC',sans-serif}
+body{background:#0a0d1a;color:#c8cce0;display:flex;height:100vh}
+.sidebar{width:240px;background:rgba(14,18,34,0.95);border-right:1px solid rgba(255,255,255,0.05);padding:16px;overflow-y:auto}
+.sidebar h2{font-size:14px;color:#f84;margin-bottom:16px}
+.sidebar .setting{margin-bottom:12px}
+.sidebar label{font-size:10px;color:#667;display:block;margin-bottom:3px}
+.sidebar input,.sidebar textarea{width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:8px;color:#ccc;font-size:11px;outline:none;resize:vertical}
+.sidebar textarea{height:60px}
+.chat-area{flex:1;display:flex;flex-direction:column}
+.chat-header{background:rgba(14,18,34,0.9);padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.05);font-size:14px;color:#ccc}
+.chat-messages{flex:1;overflow-y:auto;padding:16px}
+.msg{margin-bottom:12px;display:flex;gap:8px}
+.msg.user{justify-content:flex-end}
+.msg .bubble{padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5;max-width:70%}
+.msg.bot .bubble{background:rgba(14,18,34,0.9);border:1px solid rgba(255,255,255,0.06)}
+.msg.user .bubble{background:rgba(255,136,68,0.15);border:1px solid rgba(255,136,68,0.2)}
+.msg .time{font-size:9px;color:#556;margin-top:4px}
+.chat-input{padding:12px 20px;border-top:1px solid rgba(255,255,255,0.05);display:flex;gap:8px}
+.chat-input input{flex:1;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 14px;color:#ccc;font-size:13px;outline:none}
+.chat-input button{background:linear-gradient(135deg,#f84,#f4a);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer}
+.stats{display:flex;gap:16px;padding:8px 20px;font-size:10px;color:#667;border-top:1px solid rgba(255,255,255,0.03)}
+.stat span{color:#4ade80;font-weight:600}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<h2>⚙️ 机器人设置</h2>
+<div class="setting">
+<label>公司名称</label>
+<input id="companyName" value="我的公司" onchange="updateConfig()">
+</div>
+<div class="setting">
+<label>欢迎消息</label>
+<textarea id="welcomeMsg" onchange="updateConfig()">你好！我是AI客服助手，有什么可以帮你的？</textarea>
+</div>
+<div class="setting">
+<label>工作时间</label>
+<input id="workHours" value="7×24小时" onchange="updateConfig()">
+</div>
+<div class="setting">
+<label>知识库(FAQ)</label>
+<textarea id="faq" onchange="updateConfig()">Q: 退款政策？A: 7天无理由退款
+Q: 如何使用？A: 打开产品页面按指引操作
+Q: 支持哪些平台？A: 网页/微信/小程序</textarea>
+</div>
+<div style="margin-top:12px;padding:10px;background:rgba(74,222,128,0.05);border-radius:8px;font-size:10px;color:#4ade80">
+💡 这是演示版。购买后获得完整接入代码（微信/网页/API）
+</div>
+</div>
+
+<div class="chat-area">
+<div class="chat-header">💬 <span id="headerName">我的公司</span> · 客服对话</div>
+<div class="chat-messages" id="messages"></div>
+<div class="stats">
+<div>今日对话: <span id="todayCount">1</span></div>
+<div>平均响应: <span id="avgTime"><1s</span></div>
+<div>满意度: <span id="satisfaction">98%</span></div>
+</div>
+<div class="chat-input">
+<input id="userInput" placeholder="输入客户问题..." onkeydown="if(event.key==='Enter')sendMsg()">
+<button onclick="sendMsg()">发送</button>
+</div>
+</div>
+
+<script>
+var FAQ_DATA = {};
+
+function updateConfig(){
+  document.getElementById('headerName').textContent = document.getElementById('companyName').value;
+  var faqText = document.getElementById('faq').value;
+  FAQ_DATA = {};
+  faqText.split('\n').forEach(function(line){
+    var m = line.match(/Q:\s*(.+?)\s*A:\s*(.+)/);
+    if(m) FAQ_DATA[m[1].toLowerCase()] = m[2];
+  });
+}
+
+function sendMsg(){
+  var input = document.getElementById('userInput');
+  var text = input.value.trim();
+  if(!text) return;
+  
+  addMsg(text, 'user');
+  input.value = '';
+  
+  setTimeout(function(){
+    var reply = getReply(text);
+    addMsg(reply, 'bot');
+  }, 500 + Math.random()*800);
+}
+
+function getReply(q){
+  var ql = q.toLowerCase();
+  for(var k in FAQ_DATA){
+    if(ql.includes(k)) return FAQ_DATA[k];
+  }
+  var defaults = [
+    '好的，我来帮您查看一下。',
+    '这个问题我需要确认一下，稍等。',
+    '理解您的情况，我们马上处理。',
+    '感谢您的耐心，正在为您查询。',
+    '这个功能已经支持了，您可以试试。'
+  ];
+  return defaults[Math.floor(Math.random()*defaults.length)];
+}
+
+function addMsg(text, type){
+  var div = document.createElement('div');
+  div.className = 'msg ' + type;
+  var now = new Date().toLocaleTimeString();
+  div.innerHTML = '<div class="bubble">'+text+'<div class="time">'+now+'</div></div>';
+  document.getElementById('messages').appendChild(div);
+  document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+}
+
+// 初始化
+updateConfig();
+addMsg(document.getElementById('welcomeMsg').value, 'bot');
+document.getElementById('todayCount').textContent = Math.floor(Math.random()*50+10);
+</script>
+</body>
+</html>

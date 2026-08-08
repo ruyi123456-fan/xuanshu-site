@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>1688翻译上架工具</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,'PingFang SC',sans-serif}
+body{background:#0a0d1a;color:#c8cce0;padding:20px;max-width:700px;margin:0 auto}
+h1{font-size:20px;color:#4bf;margin-bottom:4px}
+.sub{font-size:12px;color:#667;margin-bottom:16px}
+.section{background:rgba(14,18,34,0.9);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:16px;margin-bottom:12px}
+.section h3{font-size:13px;color:#ccc;margin-bottom:8px}
+textarea{width:100%;height:100px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;color:#ccc;font-size:13px;resize:vertical;outline:none}
+textarea:focus{border-color:rgba(68,187,255,0.3)}
+.result{display:none;margin-top:12px}
+.result textarea{height:100px;border-color:rgba(74,222,128,0.15);background:rgba(74,222,128,0.02)}
+.btn{background:linear-gradient(135deg,#4bf,#6cf);color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px}
+.lang-tags{display:flex;gap:6px;margin-bottom:8px}
+.lang-tag{cursor:pointer;padding:4px 12px;border-radius:12px;font-size:11px;border:1px solid rgba(255,255,255,0.08);color:#889}
+.lang-tag.on{background:rgba(68,187,255,0.1);border-color:#4bf;color:#4bf}
+</style></head><body>
+<h1>🌍 1688一键翻译上架</h1>
+<div class="sub">1688商品 → 自动翻译 → 生成多语言标题+描述 → 一键上架Shopify</div>
+
+<div class="section">
+<h3>📋 粘贴1688商品描述(中文)</h3>
+<div class="lang-tags">
+<span class="lang-tag on" onclick="setLang('en',this)">English</span>
+<span class="lang-tag" onclick="setLang('ja',this)">日本語</span>
+<span class="lang-tag" onclick="setLang('ko',this)">한국어</span>
+<span class="lang-tag" onclick="setLang('es',this)">Español</span>
+</div>
+<textarea id="input" placeholder="粘贴1688商品标题+描述...&#10;&#10;例：2024新款夏季女士连衣裙 显瘦A字裙 韩版宽松中长款 纯色百搭"></textarea>
+<button class="btn" onclick="translate()">🔄 翻译 + 生成上架文案</button>
+</div>
+
+<div class="section result" id="resultSection">
+<h3>✅ 翻译结果</h3>
+<textarea id="output" readonly></textarea>
+<button class="btn" onclick="copyResult()" style="margin-top:8px">📋 复制</button>
+</div>
+
+<script>
+var currentLang='en';
+var TRANSLATIONS={
+  '连衣裙':{en:'Dress',ja:'ワンピース',ko:'원피스',es:'Vestido'},
+  '显瘦':{en:'Slimming',ja:'痩せ見え',ko:'슬리밍',es:'Adelgazante'},
+  '韩版':{en:'Korean Style',ja:'韓国風',ko:'한국 스타일',es:'Estilo Coreano'},
+  '新款':{en:'New Arrival',ja:'新作',ko:'신상품',es:'Nuevo'},
+  '夏季':{en:'Summer',ja:'夏',ko:'여름',es:'Verano'},
+  '宽松':{en:'Loose Fit',ja:'ゆったり',ko:'루즈핏',es:'Holgado'},
+  '纯色':{en:'Solid Color',ja:'無地',ko:'무지',es:'Color Sólido'},
+  '百搭':{en:'Versatile',ja:'合わせやすい',ko:'데일리',es:'Versátil'},
+  '中长款':{en:'Midi Length',ja:'ミディ丈',ko:'미디',es:'Largo Medio'},
+  'A字裙':{en:'A-line Skirt',ja:'Aラインスカート',ko:'A라인 스커트',es:'Falda en A'},
+};
+
+function setLang(l,el){
+  currentLang=l;
+  document.querySelectorAll('.lang-tag').forEach(function(t){t.classList.remove('on')});
+  el.classList.add('on');
+}
+
+function translate(){
+  var text=document.getElementById('input').value.trim();
+  if(!text){alert('请粘贴商品描述');return}
+  
+  var result=text;
+  for(var cn in TRANSLATIONS){
+    if(text.includes(cn)){
+      result=result.replace(cn, TRANSLATIONS[cn][currentLang]);
+    }
+  }
+  
+  // SEO优化的Shopify格式
+  var shopify = 'Title: ' + result.split(/[,，\n]/)[0].trim() + '\n\n';
+  shopify += 'Description:\n' + result + '\n\n';
+  shopify += 'SEO Keywords: ' + result.replace(/[，,\s]+/g,',') + '\n';
+  shopify += 'Tags: ' + result.replace(/[，,]+/g,',').replace(/\s+/g,'-').toLowerCase();
+  
+  document.getElementById('output').value=shopify;
+  document.getElementById('resultSection').style.display='block';
+}
+
+function copyResult(){
+  var t=document.getElementById('output');
+  t.select();document.execCommand('copy');
+  alert('✅ 已复制！可直接粘贴到Shopify');
+}
+</script></body></html>
