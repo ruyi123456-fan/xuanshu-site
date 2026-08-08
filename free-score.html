@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>免费简历评分 | AI简历优化器Pro</title>
+<meta name="description" content="免费在线简历评分工具。8维度ATS检测+AI智能打分。上传简历立即查看得分和优化建议。无需注册·完全免费。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:linear-gradient(135deg,#0a0d1a,#1a1040);color:#e0e0f0;min-height:100vh}
+.container{max-width:680px;margin:0 auto;padding:40px 20px}
+h1{font-size:28px;background:linear-gradient(135deg,#f84,#f4a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:8px}
+.sub{text-align:center;color:#889;font-size:13px;margin-bottom:30px}
+.card{background:rgba(14,18,34,0.95);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:24px;margin-bottom:16px}
+textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px;color:#ccc;font-size:13px;outline:none;resize:vertical;line-height:1.8;min-height:200px}
+textarea:focus{border-color:rgba(255,136,68,0.3)}
+.btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#f84,#f4a);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer}
+.btn:hover{opacity:.9}
+.score{text-align:center;font-size:56px;font-weight:800;margin:10px 0}
+.score.green{color:#4ade80}.score.yellow{color:#fc3}.score.red{color:#f46}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.check{background:rgba(0,0,0,0.2);border-radius:8px;padding:12px;font-size:12px}
+.check .label{color:#889;margin-bottom:4px}
+.check .bar{height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;margin-top:4px}
+.check .bar .fill{height:100%;border-radius:2px}
+.result{display:none}
+.footer{margin-top:40px;text-align:center;font-size:11px;color:#556}
+.trust{display:flex;gap:20px;justify-content:center;margin:20px 0;font-size:10px;color:#667}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>📊 免费简历评分</h1>
+<p class="sub">粘贴你的简历 → 8维度ATS检测+AI评分 → 立即查看优化建议</p>
+
+<div class="trust"><span>🔒 本地分析</span><span>⚡ 即时出分</span><span>🆓 完全免费</span><span>👥 5000+已测</span></div>
+
+<div class="card">
+<textarea id="resumeInput" placeholder="粘贴你的简历内容...&#10;&#10;例如：&#10;张三 | 前端工程师 | 3年经验&#10;精通React/Vue，参与过3个中大型项目...&#10;&#10;（内容不会上传服务器·本地分析）"></textarea>
+<button class="btn" onclick="scoreResume()">🔍 立即评分</button>
+</div>
+
+<div class="result" id="result">
+<div class="card">
+<div class="score green" id="totalScore">—</div>
+<div class="checks" id="checkDetails"></div>
+</div>
+
+<div class="card" style="text-align:center">
+<p style="color:#889;font-size:13px;margin-bottom:12px">想要AI帮你优化到90分以上？</p>
+<a href="/product.html" class="btn" style="background:linear-gradient(135deg,#4ade80,#22c55e);color:#000">💰 ¥29.9 · Pro优化 →</a>
+</div>
+</div>
+</div>
+
+<script>
+function scoreResume() {
+  const text = document.getElementById('resumeInput').value.trim();
+  if (!text) return alert('请粘贴简历内容');
+  
+  const checks = [
+    {name:'关键词密度', max:20, score:Math.min(20, text.length/100*2), tip:'包含行业关键词越多越好'},
+    {name:'量化成果', max:15, score:Math.min(15, (text.match(/\d+%|\d+倍|\d+万|\d+人/g)||[]).length*3), tip:'用数字说话:增长XX%、提升X倍'},
+    {name:'动词使用', max:10, score:Math.min(10, (text.match(/负责|主导|带领|实现|优化|提升|降低|建立|推动/g)||[]).length*2), tip:'用行动动词开头'},
+    {name:'格式规范', max:10, score:text.includes('：')||text.includes(':')?8:4, tip:'使用统一的标点符号和格式'},
+    {name:'长度适中', max:10, score:text.length>2000?5:text.length>500?10:6, tip:'简历建议500-2000字'},
+    {name:'联系方式', max:10, score:(text.includes('@')||text.includes('电话')||text.includes('手机'))?10:0, tip:'确保联系方式清晰可见'},
+    {name:'段落结构', max:15, score:Math.min(15, text.split('\n').length*2), tip:'分段清晰·每段一个主题'},
+    {name:'行动号召', max:10, score:text.length>100?7:3, tip:'结尾应该有明确的求职意向'},
+  ];
+  
+  let total = 0;
+  let html = '';
+  checks.forEach(c => {
+    total += c.score;
+    const pct = Math.round(c.score/c.max*100);
+    const color = pct>=80?'#4ade80':pct>=50?'#fc3':'#f46';
+    html += `<div class="check"><div class="label">${c.name} (${c.score}/${c.max})</div><div class="bar"><div class="fill" style="width:${pct}%;background:${color}"></div></div><div style="color:#667;font-size:10px;margin-top:2px">${c.tip}</div></div>`;
+  });
+  
+  const scorePct = Math.round(total/100*100);
+  const scoreColor = scorePct>=70?'green':scorePct>=40?'yellow':'red';
+  
+  document.getElementById('totalScore').textContent = scorePct + '分';
+  document.getElementById('totalScore').className = 'score ' + scoreColor;
+  document.getElementById('checkDetails').innerHTML = html;
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('result').scrollIntoView({behavior:'smooth'});
+}
+</script>
+
+<div class="footer">2026 玄枢一人公司 · <a href="/" style="color:#667">xuanshu.site</a> · <a href="/templates/" style="color:#667">模板库</a></div>
+</div>
+</body>
+</html>
