@@ -1,0 +1,25 @@
+{
+  "updated": "2026-08-08T09:30:00",
+  "engine": {
+    "stage0_discover": {"status":"ok","detail":"GitHub API+LLM","pct":85},
+    "stage1_evaluate": {"status":"ok","detail":"7维评分·分差3-5","pct":80},
+    "stage2_refine":  {"status":"ok","detail":"GitHub工具+竞品LLM","pct":70},
+    "stage3_product": {"status":"ok","detail":"6中文+5英文","pct":95},
+    "stage4_market":  {"status":"ok","detail":"知乎+小红书+海外模板","pct":75},
+    "stage5_deliver": {"status":"warn","detail":"脚本有·缺自动邮件","pct":60}
+  },
+  "domestic": {
+    "payment": {"status":"warn","detail":"微信可用·Stripe待激活","pct":40},
+    "acquisition": {"status":"warn","detail":"模板就绪·待发布","pct":20},
+    "deploy": {"status":"ok","detail":"GitHub Pages·3URL在线","pct":95},
+    "support": {"status":"ok","detail":"微信客服·隐私政策","pct":80}
+  },
+  "overseas": {
+    "payment": {"status":"warn","detail":"Gumroad/Payhip·待注册","pct":10},
+    "acquisition": {"status":"warn","detail":"模板就绪·待发布","pct":20},
+    "deploy": {"status":"ok","detail":"英文落地页5个","pct":90},
+    "support": {"status":"todo","detail":"需英文客服模板","pct":10}
+  },
+  "cron": {"status":"ok","detail":"每日扫描·cron 40fd0b064461"},
+  "overall": 68
+}
