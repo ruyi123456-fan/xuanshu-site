@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/product.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/product-app.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/</loc><priority>1.0</priority></url>
+<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/product.html</loc><priority>0.9</priority></url>
+<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/cover-letter.html</loc><priority>0.8</priority></url>
+<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/free-score.html</loc><priority>0.8</priority></url>
+<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/jd-scanner.html</loc><priority>0.8</priority></url>
+<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/linkedin-import.html</loc><priority>0.7</priority></url>
+<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/student-free.html</loc><priority>0.7</priority></url>
+<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/pay.html</loc><priority>0.6</priority></url>
+<url><loc>https://ruyi123456-fan.github.io/xuanshu-site/templates/</loc><priority>0.8</priority></url>
 </urlset>
